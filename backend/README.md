@@ -4,7 +4,7 @@
 
 - php 7.4
 - symfony 5.4
-- Postgres 15.0
+- Mysql 8.0
 - Xdebug 3.2.0
 
 ### Workflow

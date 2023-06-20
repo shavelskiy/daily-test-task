@@ -11,7 +11,6 @@ services:
       - db
       - db-test
       - minio
-      - mailhog
 
   nginx:
     build:
@@ -23,17 +22,15 @@ services:
       - php
 
   db:
-    image: postgres:15.0-alpine
+    image: mysql:8.0
     volumes:
-      - db-data:/var/lib/postgresql/data
-    ports:
-      - ${POSTGRES_PORT}:5432
+      - db-data:/var/lib/mysql
     env_file:
       - .env
       - .env.local
 
   db-test:
-    image: postgres:15.0-alpine
+    image: mysql:8.0
     env_file:
       - .env
 
@@ -48,29 +45,6 @@ services:
       - .env
       - .env.local
 
-  mailhog:
-    image: mailhog/mailhog:latest
-    ports:
-      - 8025:8025
-
-###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-15}-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
-    volumes:
-      - database_data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
-
 volumes:
   aws-data:
   db-data:
-
-###> doctrine/doctrine-bundle ###
-  database_data:
-###< doctrine/doctrine-bundle ###

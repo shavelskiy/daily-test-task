@@ -4,7 +4,7 @@ COPY --from=mlocati/php-extension-installer:1.5 /usr/bin/install-php-extensions 
 COPY --from=composer:2.5 /usr/bin/composer /usr/local/bin/composer
 
 RUN install-php-extensions \
-  pdo_pgsql \
+  pdo_mysql \
   intl \
   zip \
   opcache

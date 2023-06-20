@@ -19,7 +19,7 @@ php:
 	docker-compose exec php sh
 
 db:
-	docker-compose exec db psql -Upostgres
+	docker-compose exec db mysql -udailyUser -pdailyPassword daily
 
 install:
 	@$(DOCKER_COMMAND) composer install
