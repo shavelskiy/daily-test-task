@@ -4,8 +4,9 @@ import Navbar from 'react-bootstrap/Navbar'
 import Link from 'next/link'
 import { logout } from '@/lib/auth'
 import { useRouter } from 'next/navigation'
+import { IUser } from '@/types/types'
 
-const AppMenu = () => {
+const AppMenu = ({ user }: { user: IUser }) => {
   const router = useRouter()
 
   const logoutAction = () => {
@@ -23,6 +24,7 @@ const AppMenu = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
+            <Navbar.Text>({user.email})</Navbar.Text>
             <span className="nav-link" onClick={logoutAction}>
               Выход
             </span>

@@ -1,12 +1,17 @@
 'use client'
 
 import AppMenu from '@/components/Layout/AppMenu'
+import { IUser } from '@/types/types'
 import { Container, Row } from 'react-bootstrap'
 
-const App = () => {
+type Props = {
+  user: IUser,
+}
+
+const App = ({ params }: { params: Props }) => {
   return (
     <>
-      <AppMenu />
+      <AppMenu user={params.user} />
       <Container className="mt-3">
         <Row>
           <div>application</div>

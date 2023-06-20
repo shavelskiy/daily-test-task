@@ -3,15 +3,17 @@ import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 
 export const metadata = {
-  title: 'Авторизация',
+  title: 'Ежедневник',
 }
 
-const AppLayout = async ({ children }: { children: React.ReactNode }) => {
-  if ((await getUser(cookies())) === null) {
+const AppLayout = async (props: { children: React.ReactNode, params: object }) => {
+  const user = await getUser(cookies())
+  if (user === null) {
     redirect('/auth')
   }
 
-  return <>{children}</>
+  props.params.user = user
+  return <>{props.children}</>
 }
 
 export default AppLayout
