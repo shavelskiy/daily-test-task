@@ -15,4 +15,9 @@ class SecurityException extends BaseException
     {
         return new self('invalid creditionals', 201);
     }
+
+    public static function notAuth(): self
+    {
+        return new self('not auth', 202, 401);
+    }
 }

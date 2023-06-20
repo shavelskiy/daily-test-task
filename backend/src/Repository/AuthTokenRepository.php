@@ -28,16 +28,18 @@ class AuthTokenRepository extends ServiceEntityRepository
 
     public function findByToken(string $token): ?AuthToken
     {
-        $sql = <<<'SQL'
-            select *  from auth_token where token = :token  and (expires_at > :expires_at or true)
-        SQL;
+        $result = $this->createQueryBuilder('authToken')
+            ->andWhere('authToken.accessToken = :token')
+            ->andWhere('authToken.expiresAt > :expiresAt')
+            ->setParameters([
+                'token' => $token,
+                'expiresAt' => new DateTimeImmutable(),
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
 
-        $authToken = $this->_em->getConnection()->prepare($sql)->executeQuery([
-            'token' => $token,
-            'expires_at' => (new DateTimeImmutable())->format('Y-m-d H:i:s'),
-        ])->fetchAssociative();
-
-        return $authToken !== false ? $this->hydrate($authToken) : null;
+        return !empty($result) ? current($result) : null;
     }
 
     public function findActiveToken(User $user): ?AuthToken
