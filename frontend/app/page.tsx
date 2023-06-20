@@ -1,13 +1,9 @@
 import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
+import { getUser } from '@/lib/api/security'
 
 const Home = async () => {
-  const res = await fetch("http://localhost:8181/v1/security/user");
+  redirect((await getUser(cookies())) ? '/daily' : '/auth')
+}
 
-  if (res.status !== 200) {
-    redirect('/auth')
-  }
-
-  return <></>;
-};
-
-export default Home;
+export default Home
