@@ -8,6 +8,11 @@ class SecurityException extends BaseException
 {
     public static function exists(string $email): self
     {
-        return new self(sprintf('user with email %s alreay exists', $email), 201);
+        return new self(sprintf('user with email %s alreay exists', $email), 200);
+    }
+
+    public static function auth(): self
+    {
+        return new self('invalid creditionals', 201);
     }
 }

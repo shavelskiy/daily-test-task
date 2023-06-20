@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Security;
 
+use App\Api\Request\Security\AuthRequest;
 use App\Api\Request\Security\RegisterRequest;
 use App\Entity\User;
 use App\Exception\SecurityException;
@@ -23,7 +24,7 @@ class SecurityService
 
     public function register(RegisterRequest $request): User
     {
-        if ($this->userRepository->exists($request->email)) {
+        if ($this->userRepository->findByEmail($request->email) !== null) {
             throw SecurityException::exists($request->email);
         }
 
@@ -33,6 +34,19 @@ class SecurityService
         ;
 
         $this->userRepository->save($user);
+
+        return $user;
+    }
+
+    public function auth(AuthRequest $request): User
+    {
+        if (($user = $this->userRepository->findByEmail($request->email)) === null) {
+            throw SecurityException::auth();
+        }
+
+        if (!$this->validatePassword($user, $request->password)) {
+            throw SecurityException::auth();
+        }
 
         return $user;
     }

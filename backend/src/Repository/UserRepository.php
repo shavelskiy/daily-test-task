@@ -18,13 +18,12 @@ class UserRepository extends BaseRepository
         parent::__construct($registry, User::class);
     }
 
-    public function exists(string $email): bool
+    public function findByEmail(string $email): ?User
     {
         try {
-            $this->findOneBy(['email' => $email]);
-            return true;
+            return $this->findOneBy(['email' => $email]);
         } catch (RepositoryException $e) {
-            return false;
+            return null;
         }
     }
 }

@@ -46,7 +46,7 @@ class AuthTokenRepository extends ServiceEntityRepository
             ->andWhere('authToken.user = :user')
             ->andWhere('authToken.expiresAt > :expiresAt')
             ->setParameters([
-                'user' => $user,
+                'user' => $user->getId()->toBinary(),
                 'expiresAt' => new DateTimeImmutable(),
             ])
             ->getQuery()
