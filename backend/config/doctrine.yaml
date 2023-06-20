@@ -1,0 +1,21 @@
+doctrine:
+  dbal:
+    dbname: postgres
+    host: db
+    port: 5432
+    user: postgres
+    password: '%env(resolve:POSTGRES_PASSWORD)%'
+    driver: pdo_pgsql
+  orm:
+    auto_generate_proxy_classes: false
+    naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+    auto_mapping: true
+    mappings:
+      App:
+        dir: '%kernel.project_dir%/src/Entity'
+        prefix: 'App\Entity'
+
+doctrine_migrations:
+  migrations_paths:
+    'DoctrineMigrations': '%kernel.project_dir%/migrations'
+  organize_migrations: BY_YEAR_AND_MONTH

@@ -1,0 +1,25 @@
+framework:
+  secret: ''
+  http_method_override: false
+
+monolog:
+  channels: ['command']
+  handlers:
+    main:
+      type: stream
+      path: 'php://stdout'
+      channels: ['app', 'command']
+      formatter: 'monolog.formatter.json'
+
+when@test:
+  framework:
+    test: true
+  doctrine:
+    dbal:
+      host: db-test
+  monolog:
+    handlers:
+      main:
+        type: stream
+        path: '%kernel.logs_dir%/%kernel.environment%.log'
+        channels: ['command', 'app']

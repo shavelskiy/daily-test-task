@@ -4,6 +4,9 @@ DOCKER_COMMAND = docker-compose run --rm -e XDEBUG_MODE=off php
 DOCKER_COMMAND_WITH_DEBUG = docker-compose run --rm php
 REGISTRY = registry.gitlab.com/akula-crm/crm-backend
 
+init:
+	start install reload-db tests
+
 start:
 	mkdir -p var
 	touch .env.local
@@ -20,9 +23,6 @@ db:
 
 install:
 	@$(DOCKER_COMMAND) composer install
-
-generate-doc:
-	@$(DOCKER_COMMAND) composer generate-doc
 
 migrate:
 	@$(DOCKER_COMMAND) composer app doctrine:migrations:migrate -- --no-interaction
@@ -41,9 +41,6 @@ check-autoload:
 php-fixer:
 	@$(DOCKER_COMMAND) composer php-cs-fixer fix -- --allow-risky=yes
 
-php-lint:
-	@$(DOCKER_COMMAND) composer php-cs-fixer fix -- --allow-risky=yes --dry-run --diff
-
 psalm:
 	@$(DOCKER_COMMAND) composer psalm
 
@@ -57,5 +54,4 @@ phpunit:
 phpunit-no-debug:
 	@$(DOCKER_COMMAND) composer phpunit
 
-tests: check-autoload php-fixer psalm symfony-lint generate-doc phpunit
-pre-push: check-autoload php-lint psalm symfony-lint generate-doc phpunit-no-debug reload-db schema-validate
+tests: check-autoload php-fixer psalm symfony-lint phpunit-no-debug
