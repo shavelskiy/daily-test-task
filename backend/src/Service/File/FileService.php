@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Service\File;
 
+use App\Dto\FileData;
 use App\Entity\File;
 use App\Exception\FileException;
 use App\Repository\FileRepository;
 use App\Service\Security\UserStorage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Uid\Uuid;
 
 class FileService
 {
@@ -49,5 +51,15 @@ class FileService
         $this->fileRepository->save($file);
 
         return $file;
+    }
+
+    public function download(Uuid $id): FileData
+    {
+        $file = $this->fileRepository->find($id->toBinary());
+
+        return new FileData(
+            $file,
+            $this->fileStorage->getFileContent($file),
+        );
     }
 }

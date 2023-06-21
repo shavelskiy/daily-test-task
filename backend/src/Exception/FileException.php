@@ -25,4 +25,9 @@ class FileException extends BaseException
     {
         return new self('unsupported extension', 503);
     }
+
+    public static function access(): self
+    {
+        return new self('access denied', 504, 403);
+    }
 }

@@ -17,4 +17,4 @@ services:
     resource: '../src/*'
     exclude:
       - '../src/Kernel.php'
-      - '../src/{Api,Entity,Exception}'
+      - '../src/{Api,Entity,Dto,Exception}'
