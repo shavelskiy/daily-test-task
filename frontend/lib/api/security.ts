@@ -60,11 +60,5 @@ export const getUser = async (cookieStore: ReadonlyRequestCookies): Promise<IUse
     return null
   }
 
-  const data = await res.json()
-
-  return {
-    id: data.id,
-    email: data.email,
-    admin: data.admin,
-  }
+  return await res.json()
 }

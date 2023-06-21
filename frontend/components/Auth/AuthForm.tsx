@@ -11,6 +11,7 @@ const AuthForm = () => {
 
   const [loading, setLoading] = useState<boolean>(false)
   const [result, setResult] = useState<boolean | null>(null)
+  const [block, setBlock] = useState<boolean>(false)
 
   const [email, setEmail] = useState<string>('')
   const [password, setPasword] = useState<string>('')
@@ -18,11 +19,14 @@ const AuthForm = () => {
   const submit = () => {
     setLoading(true)
     setResult(null)
+    setBlock(false)
 
     auth(email, password)
       .then((result) => {
-        if (result.status !== 200) {
+        if (result.status === 400) {
           setResult(false)
+        } else if (result.status === 403) {
+          setBlock(true)
         } else {
           result.json().then((data) => {
             login(data.token)
@@ -44,6 +48,7 @@ const AuthForm = () => {
     >
       {result === true && <Alert variant="success">Вы успешно авторизовались</Alert>}
       {result === false && <Alert variant="danger">Неверный логин или пароль</Alert>}
+      {block && <Alert variant="danger">Ваш пользователь заблокирован</Alert>}
       <Form.Group className="mb-3" controlId="email">
         <Form.Label>Email</Form.Label>
         <Form.Control type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />

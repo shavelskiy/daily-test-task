@@ -7,7 +7,9 @@ export const metadata = {
 }
 
 const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
-  if ((await getUser(cookies())) !== null) {
+  const user = await getUser(cookies())
+
+  if (user !== null && user.active) {
     redirect('/daily')
   }
 

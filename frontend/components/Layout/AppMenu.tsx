@@ -23,6 +23,12 @@ const AppMenu = ({ user }: { user: IUser }) => {
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
+          {user.admin && (
+            <Link href="/admin" className="navbar-text">
+              Панель администратора
+            </Link>
+          )}
+
           <Nav className="ms-auto">
             <Navbar.Text>({user.email})</Navbar.Text>
             <span className="nav-link" onClick={logoutAction}>

@@ -5,13 +5,17 @@ import { cookies } from 'next/headers'
 import "react-datepicker/dist/react-datepicker.css";
 
 export const metadata = {
-  title: 'Ежедневник',
+  title: 'Панель администратора',
 }
 
-const AppLayout = async (props: { children: React.ReactNode, params: object }) => {
+const AdminLayout = async (props: { children: React.ReactNode, params: object }) => {
   const user = await getUser(cookies())
-  if (user === null || !user.active) {
+  if (user === null) {
     redirect('/auth')
+  }
+
+  if (!user.admin) {
+    redirect('/daily')
   }
 
   props.params.user = user
@@ -19,4 +23,4 @@ const AppLayout = async (props: { children: React.ReactNode, params: object }) =
   return <>{props.children}</>
 }
 
-export default AppLayout
+export default AdminLayout

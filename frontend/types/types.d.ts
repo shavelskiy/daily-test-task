@@ -2,6 +2,8 @@ export type IUser = {
   id: string
   email: string
   admin: boolean
+  active: boolean
+  createdAt: string
 }
 
 export type IFile = {
