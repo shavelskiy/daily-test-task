@@ -1,7 +1,7 @@
 import { deleteRecord, finishRecord } from '@/lib/api/record'
 import { formatDate } from '@/lib/helper'
-import { IRecord } from '@/types/types'
-import { Button, Card } from 'react-bootstrap'
+import { IFile, IRecord } from '@/types/types'
+import { Button, Card, Col, Image, Row } from 'react-bootstrap'
 
 type Props = {
   reload: () => void
@@ -16,6 +16,18 @@ const RecordItem = ({ reload, record, token }: Props) => {
 
   const finish = () => {
     finishRecord(record.id, token).finally(reload)
+  }
+
+  const renderFile = (file: IFile, key: number) => {
+    const downloadLink = `http://localhost:8181${file.link}`
+    const link = ['jpg', 'jpeg'].includes(file.extension) ? downloadLink : '/file.svg'
+
+    return (
+      <Col style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} md={2} key={key}>
+        <Image src={link} style={{maxWidth: '90%', maxHeight: 200, padding: 20}} />
+        <a href={downloadLink} target="_blank" style={{fontSize: 12}}>{file.name}</a>
+      </Col>
+    )
   }
 
   return (
@@ -41,6 +53,9 @@ const RecordItem = ({ reload, record, token }: Props) => {
           </div>
         </div>
       </Card.Body>
+      <Card.Footer className="text-muted">
+        <Row>{record.files.map((file, key) => renderFile(file, key))}</Row>
+      </Card.Footer>
     </Card>
   )
 }

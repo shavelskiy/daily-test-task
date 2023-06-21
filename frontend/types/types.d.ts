@@ -4,9 +4,17 @@ export type IUser = {
   admin: boolean
 }
 
+export type IFile = {
+  id: string
+  name: string
+  extension: string
+  link: string
+}
+
 export type IRecord = {
   id: string
   user: IUser
+  files: IFile[]
   done: boolean
   text: string
   date: string

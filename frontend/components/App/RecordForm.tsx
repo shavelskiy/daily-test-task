@@ -33,17 +33,20 @@ const ModalForm = ({ date, show, setShow, token, reload }: ModalFormProps) => {
       return
     }
 
-    Promise.all(files.filter((file) => isValidFile(file)).map((file) => uploadFile(file, token))).then((data) => {
-      const fileIds = data.map((data) => data.data.id)
+    setLoading(true)
+    Promise.all(files.filter((file) => isValidFile(file)).map((file) => uploadFile(file, token)))
+      .then((data) => {
+        const fileIds = data.map((data) => data.data.id)
 
-      setLoading(true)
-      createRecord(text, fileIds, date, token).finally(() => {
-        setText('')
-        setShow(false)
-        setLoading(false)
-        reload()
+        createRecord(text, fileIds, date, token).finally(() => {
+          setText('')
+          setFiles([])
+          setShow(false)
+          setLoading(false)
+          reload()
+        })
       })
-    })
+      .catch(() => setLoading(false))
   }
 
   return (
