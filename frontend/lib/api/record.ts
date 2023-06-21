@@ -1,4 +1,4 @@
-export const createRecord = (text: string, date: Date, token: string): Promise<Response> => {
+export const createRecord = (text: string, fileIds: string[], date: Date, token: string): Promise<Response> => {
   return fetch('http://localhost:8181/v1/record', {
     method: 'POST',
     headers: {
@@ -7,6 +7,7 @@ export const createRecord = (text: string, date: Date, token: string): Promise<R
     },
     body: JSON.stringify({
       text: text,
+      files: fileIds,
       date: date,
     }),
   })

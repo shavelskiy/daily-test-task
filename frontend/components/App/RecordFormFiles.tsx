@@ -4,13 +4,10 @@ import Form from 'react-bootstrap/Form'
 type Props = {
   files: File[]
   setFiles: (v: File[]) => void
+  isValidFile: (file: File) => boolean
 }
 
-const RecordFormFiles = ({ files, setFiles }: Props) => {
-  const isValidFile = (file: File): boolean => {
-    return ['application/pdf', 'image/jpeg', 'image/jpg', 'application/msword'].includes(file.type)
-  }
-
+const RecordFormFiles = ({ files, setFiles, isValidFile }: Props) => {
   const getFilePath = (file: File): string => {
     if (file.type.startsWith('image/')) {
       return URL.createObjectURL(file)

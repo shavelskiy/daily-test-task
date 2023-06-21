@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
 import RecordFormFiles from './RecordFormFiles'
+import { uploadFile } from '@/lib/api/file'
 
 type ModalFormProps = {
   reload: () => void
@@ -23,17 +24,25 @@ const ModalForm = ({ date, show, setShow, token, reload }: ModalFormProps) => {
   const [text, setText] = useState<string>('')
   const [files, setFiles] = useState<File[]>([])
 
+  const isValidFile = (file: File): boolean => {
+    return ['application/pdf', 'image/jpeg', 'image/jpg', 'application/msword'].includes(file.type)
+  }
+
   const submit = () => {
     if (text.length < 1) {
       return
     }
 
-    setLoading(true)
-    createRecord(text, date, token).finally(() => {
-      setText('')
-      setShow(false)
-      setLoading(false)
-      reload()
+    Promise.all(files.filter((file) => isValidFile(file)).map((file) => uploadFile(file, token))).then((data) => {
+      const fileIds = data.map((data) => data.data.id)
+
+      setLoading(true)
+      createRecord(text, fileIds, date, token).finally(() => {
+        setText('')
+        setShow(false)
+        setLoading(false)
+        reload()
+      })
     })
   }
 
@@ -47,8 +56,7 @@ const ModalForm = ({ date, show, setShow, token, reload }: ModalFormProps) => {
           <Form.Control as="textarea" rows={3} value={text} onChange={(e) => setText(e.target.value)} />
         </Form.Group>
 
-        <RecordFormFiles files={files} setFiles={setFiles} />
-
+        <RecordFormFiles files={files} setFiles={setFiles} isValidFile={isValidFile} />
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={() => setShow(false)}>
