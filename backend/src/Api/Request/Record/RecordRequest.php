@@ -20,6 +20,11 @@ class RecordRequest implements RequestDtoInterface
      */
     public DateTimeImmutable $date;
 
+    /**
+     * @var string[]
+     */
+    public array $files = [];
+
     public function __construct(DateTimeImmutable $date)
     {
         $this->date = $date;

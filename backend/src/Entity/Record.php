@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,13 @@ class Record extends BaseEntity
     private DateTimeImmutable $date;
 
     /**
+     * @ORM\ManyToMany(targetEntity=File::class)
+     *
+     * @var Collection<int, File>
+     */
+    private Collection $files;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private bool $done = false;
@@ -38,6 +47,8 @@ class Record extends BaseEntity
     {
         $this->user = $user;
         $this->date = $date;
+
+        $this->files = new ArrayCollection();
         parent::__construct();
     }
 
@@ -60,6 +71,20 @@ class Record extends BaseEntity
     public function getDate(): DateTimeImmutable
     {
         return $this->date;
+    }
+
+    /**
+     * @return Collection<int, File>
+     */
+    public function getFiles(): Collection
+    {
+        return $this->files;
+    }
+
+    public function addFile(File $file): self
+    {
+        $this->files->add($file);
+        return $this;
     }
 
     public function isDone(): bool

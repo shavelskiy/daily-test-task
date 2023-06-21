@@ -42,7 +42,8 @@ class FileService
         $file = new File($this->userStorage->getUser());
         $file
             ->setName($uploadedFile->getClientOriginalName())
-            ->setContentType($uploadedFile->getMimeType() ?? $uploadedFile->getClientOriginalExtension());
+            ->setContentType($uploadedFile->getMimeType() ?? $uploadedFile->getClientOriginalExtension())
+        ;
 
         $this->fileStorage->save($file, $uploadedFile);
         $this->fileRepository->save($file);

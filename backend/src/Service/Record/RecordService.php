@@ -7,6 +7,7 @@ namespace App\Service\Record;
 use App\Api\Request\Record\RecordRequest;
 use App\Entity\Record;
 use App\Exception\RecordException;
+use App\Repository\FileRepository;
 use App\Repository\RecordRepository;
 use App\Service\Security\UserStorage;
 use DateTimeImmutable;
@@ -16,23 +17,34 @@ class RecordService
 {
     private RecordRepository $recordRepository;
     private UserStorage $userStorage;
+    private FileRepository $fileRepository;
 
     public function __construct(
         RecordRepository $recordRepository,
-        UserStorage $userStorage
+        UserStorage $userStorage,
+        FileRepository $fileRepository
     ) {
         $this->recordRepository = $recordRepository;
         $this->userStorage = $userStorage;
+        $this->fileRepository = $fileRepository;
     }
 
     public function create(RecordRequest $request): Record
     {
-        $record = new Record(
-            $this->userStorage->getUser(),
-            $request->date,
-        );
+        $user = $this->userStorage->getUser();
 
+        $record = new Record($user, $request->date);
         $record->setText($request->text);
+
+        foreach ($request->files as $fileId) {
+            $file = $this->fileRepository->find($fileId);
+
+            if ((string)$file->getUser()->getId() !== (string)$user->getId()) {
+                throw RecordException::access();
+            }
+
+            $record->addFile($file);
+        }
 
         $this->recordRepository->save($record);
 
@@ -69,7 +81,7 @@ class RecordService
     {
         $record = $this->recordRepository->find($id);
 
-        if (!$record->getUser()->getId()->compare($id)) {
+        if ((string)$record->getUser()->getId() !== (string)$id) {
             throw RecordException::access();
         }
 
