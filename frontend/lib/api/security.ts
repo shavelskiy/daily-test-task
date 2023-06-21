@@ -31,6 +31,16 @@ export const isAuth = async (cookieStore: ReadonlyRequestCookies): Promise<boole
   return getUser(cookieStore) !== null
 }
 
+export const getToken = (cookieStore: ReadonlyRequestCookies): string => {
+  const cookie = cookieStore.get('user_token')
+
+  if (!cookie) {
+    return ''
+  }
+
+  return cookie.value
+}
+
 export const getUser = async (cookieStore: ReadonlyRequestCookies): Promise<IUser | null> => {
   const cookie = cookieStore.get('user_token')
 
