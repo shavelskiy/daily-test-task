@@ -28,6 +28,6 @@ class RepositoryException extends BaseException
 
     public static function notFoundById(string $entity, string $id): self
     {
-        return new self(sprintf('%s "%s" не найден', $entity, $id));
+        return new self(sprintf('%s "%s" не найден', $entity, $id), 304);
     }
 }
