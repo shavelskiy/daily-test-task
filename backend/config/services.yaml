@@ -2,6 +2,12 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
+    bind:
+      $awsRegion: '%env(string:AWS_REGION)%'
+      $awsEndpoint: '%env(string:AWS_ENDPOINT)%'
+      $awsKey: '%env(string:AWS_ROOT_USER)%'
+      $awsSecret: '%env(string:AWS_ROOT_PASSWORD)%'
+      $awsBucket: '%env(string:AWS_BUCKET)%'
       
   _instanceof:
     App\Controller\AbstractController:

@@ -18,4 +18,9 @@ class ValidationException extends BaseException
 
         return new self(implode('; ', $result), 100);
     }
+
+    public static function validate(): self
+    {
+        return new self('validate exception', 101);
+    }
 }
