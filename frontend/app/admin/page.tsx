@@ -29,7 +29,7 @@ const Admin = ({ params }: { params: Props }) => {
       .finally(() => setUsers([]))
   }
 
-  useEffect(reload, [])
+  useEffect(reload, [params.token])
 
   return (
     <>

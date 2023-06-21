@@ -2,7 +2,7 @@ import { IUser } from '@/types/types'
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies'
 
 export const auth = (email: string, password: string): Promise<Response> => {
-  return fetch('http://localhost:8181/v1/security/auth', {
+  return fetch(`${process.env.API_HOST}/v1/security/auth`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -15,7 +15,7 @@ export const auth = (email: string, password: string): Promise<Response> => {
 }
 
 export const register = (email: string, password: string): Promise<Response> => {
-  return fetch('http://localhost:8181/v1/security/register', {
+  return fetch(`${process.env.API_HOST}/v1/security/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export const getUser = async (cookieStore: ReadonlyRequestCookies): Promise<IUse
 
   const token = cookie.value
 
-  const res = await fetch('http://localhost:8181/v1/security/user', {
+  const res = await fetch(`${process.env.API_HOST}/v1/security/user`, {
     headers: {
       Authorization: 'Bearer ' + token,
     },

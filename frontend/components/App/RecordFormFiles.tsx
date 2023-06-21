@@ -32,6 +32,7 @@ const RecordFormFiles = ({ files, setFiles, isValidFile }: Props) => {
           {files.map((file, key) => (
             <Col md={3} key={key} className="mb-3" style={{ position: 'relative', overflow: 'hidden' }}>
               <Image
+                alt=""
                 src={getFilePath(file)}
                 thumbnail
                 style={{ width: '60%', borderColor: isValidFile(file) ? '#adb5bd' : 'red' }}
@@ -43,6 +44,7 @@ const RecordFormFiles = ({ files, setFiles, isValidFile }: Props) => {
         </Row>
       )}
 
+        {/* @ts-ignore */}
       <Form.Control type="file" multiple onChange={(e) => setFiles([...files, ...Array.from(e.target.files)])} />
     </Form.Group>
   )

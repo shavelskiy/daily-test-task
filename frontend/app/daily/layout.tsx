@@ -3,12 +3,13 @@ import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 
 import "react-datepicker/dist/react-datepicker.css";
+import { IUser } from '@/types/types';
 
 export const metadata = {
   title: 'Ежедневник',
 }
 
-const AppLayout = async (props: { children: React.ReactNode, params: object }) => {
+const AppLayout = async (props: { children: React.ReactNode, params: {user: IUser, token: string} }) => {
   const user = await getUser(cookies())
   if (user === null || !user.active) {
     redirect('/auth')

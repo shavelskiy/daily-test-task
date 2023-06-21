@@ -32,7 +32,7 @@ const App = ({ params }: { params: Props }) => {
       .finally(() => setRecords([]))
   }
 
-  useEffect(reload, [date])
+  useEffect(reload, [date, params.token])
 
   return (
     <>

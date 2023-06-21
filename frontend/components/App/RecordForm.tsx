@@ -36,6 +36,7 @@ const ModalForm = ({ date, show, setShow, token, reload }: ModalFormProps) => {
     setLoading(true)
     Promise.all(files.filter((file) => isValidFile(file)).map((file) => uploadFile(file, token)))
       .then((data) => {
+        /* @ts-ignore */
         const fileIds = data.map((data) => data.data.id)
 
         createRecord(text, fileIds, date, token).finally(() => {

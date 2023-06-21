@@ -1,5 +1,5 @@
 export const getUsers = (token: string): Promise<Response> => {
-  return fetch(`http://localhost:8181/v1/admin/user`, {
+  return fetch(`${process.env.API_HOST}/v1/admin/user`, {
     headers: {
       Authorization: 'Bearer ' + token,
     },
@@ -7,7 +7,7 @@ export const getUsers = (token: string): Promise<Response> => {
 }
 
 export const blockUser = (id: string, token: string): Promise<Response> => {
-  return fetch(`http://localhost:8181/v1/admin/user/access/${id}`, {
+  return fetch(`${process.env.API_HOST}/v1/admin/user/access/${id}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ export const blockUser = (id: string, token: string): Promise<Response> => {
 }
 
 export const unblockUser = (id: string, token: string): Promise<Response> => {
-  return fetch(`http://localhost:8181/v1/admin/user/access/${id}`, {
+  return fetch(`${process.env.API_HOST}/v1/admin/user/access/${id}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export const unblockUser = (id: string, token: string): Promise<Response> => {
 }
 
 export const deleteUser = (id: string, token: string): Promise<Response> => {
-  return fetch(`http://localhost:8181/v1/admin/user/${id}`, {
+  return fetch(`${process.env.API_HOST}/v1/admin/user/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

@@ -19,12 +19,12 @@ const RecordItem = ({ reload, record, token }: Props) => {
   }
 
   const renderFile = (file: IFile, key: number) => {
-    const downloadLink = `http://localhost:8181${file.link}`
+    const downloadLink = `${process.env.API_HOST}${file.link}`
     const link = ['jpg', 'jpeg'].includes(file.extension) ? downloadLink : '/file.svg'
 
     return (
       <Col style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} md={2} key={key}>
-        <Image src={link} style={{maxWidth: '90%', maxHeight: 200, padding: 20}} />
+        <Image alt={file.name} src={link} style={{maxWidth: '90%', maxHeight: 200, padding: 20}} />
         <a href={downloadLink} target="_blank" style={{fontSize: 12}}>{file.name}</a>
       </Col>
     )

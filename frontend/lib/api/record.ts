@@ -1,5 +1,5 @@
 export const createRecord = (text: string, fileIds: string[], date: Date, token: string): Promise<Response> => {
-  return fetch('http://localhost:8181/v1/record', {
+  return fetch(`${process.env.API_HOST}/v1/record`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -14,7 +14,7 @@ export const createRecord = (text: string, fileIds: string[], date: Date, token:
 }
 
 export const getRecords = (date: Date, token: string): Promise<Response> => {
-  return fetch(`http://localhost:8181/v1/record?date=${date.toISOString()}`, {
+  return fetch(`${process.env.API_HOST}/v1/record?date=${date.toISOString()}`, {
     headers: {
       Authorization: 'Bearer ' + token,
     },
@@ -22,7 +22,7 @@ export const getRecords = (date: Date, token: string): Promise<Response> => {
 }
 
 export const finishRecord = (id: string, token: string): Promise<Response> => {
-  return fetch(`http://localhost:8181/v1/record/finish/${id}`, {
+  return fetch(`${process.env.API_HOST}/v1/record/finish/${id}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ export const finishRecord = (id: string, token: string): Promise<Response> => {
 }
 
 export const deleteRecord = (id: string, token: string): Promise<Response> => {
-  return fetch(`http://localhost:8181/v1/record/${id}`, {
+  return fetch(`${process.env.API_HOST}/v1/record/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
