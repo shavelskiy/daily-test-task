@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\File;
 
-use App\Controller\AbstractController;
+use App\Controller\ControllerInterface;
 use App\Service\File\FileService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,7 +13,7 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @Route(path="/file/{id}", methods="GET")
  */
-class FileDownloadController extends AbstractController
+class FileDownloadController implements ControllerInterface
 {
     private FileService $fileService;
 

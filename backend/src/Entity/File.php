@@ -14,7 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
 class File extends BaseEntity
 {
     /**
-     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\ManyToOne(targetEntity=User::class, cascade={"remove"})
+     *
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private User $user;
 

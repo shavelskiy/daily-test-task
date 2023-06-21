@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Record;
 
 use App\Api\Response\Record\RecordResponse;
-use App\Controller\AbstractController;
+use App\Controller\ControllerInterface;
 use App\Service\Record\RecordService;
 use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(path="/record", methods="GET")
  */
-class RecordListController extends AbstractController
+class RecordListController implements ControllerInterface
 {
     private RecordService $recordService;
 

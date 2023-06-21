@@ -6,7 +6,7 @@ namespace App\Controller\Security;
 
 use App\Api\Request\Security\AuthRequest;
 use App\Api\Response\Security\AuthTokenResponse;
-use App\Controller\AbstractController;
+use App\Controller\ControllerInterface;
 use App\Service\Security\AuthTokenService;
 use App\Service\Security\SecurityService;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(path="/security/auth", methods="POST")
  */
-class AuthController extends AbstractController
+class AuthController implements ControllerInterface
 {
     private SecurityService $securityService;
     private AuthTokenService $authTokenService;

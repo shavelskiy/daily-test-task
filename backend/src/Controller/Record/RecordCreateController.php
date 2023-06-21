@@ -6,7 +6,7 @@ namespace App\Controller\Record;
 
 use App\Api\Request\Record\RecordRequest;
 use App\Api\Response\Record\RecordResponse;
-use App\Controller\AbstractController;
+use App\Controller\ControllerInterface;
 use App\Service\Record\RecordService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(path="/record", methods="POST")
  */
-class RecordCreateController extends AbstractController
+class RecordCreateController implements ControllerInterface
 {
     private RecordService $recordService;
 

@@ -10,7 +10,7 @@ services:
       $awsBucket: '%env(string:AWS_BUCKET)%'
       
   _instanceof:
-    App\Controller\AbstractController:
+    App\Controller\ControllerInterface:
       tags: ['controller.service_arguments']
 
   App\:

@@ -30,6 +30,11 @@ class User extends BaseEntity
      */
     private bool $admin = false;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $active = true;
+
     public function getEmail(): string
     {
         return $this->email;
@@ -60,6 +65,17 @@ class User extends BaseEntity
     public function setAdmin(bool $admin): self
     {
         $this->admin = $admin;
+        return $this;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
         return $this;
     }
 }

@@ -48,6 +48,10 @@ class SecurityService
             throw SecurityException::auth();
         }
 
+        if (!$user->isActive()) {
+            throw SecurityException::block();
+        }
+
         return $user;
     }
 

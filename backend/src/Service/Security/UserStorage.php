@@ -23,6 +23,10 @@ class UserStorage
             throw SecurityException::notAuth();
         }
 
+        if (!$this->authToken->getUser()->isActive()) {
+            throw SecurityException::block();
+        }
+
         return $this->authToken->getUser();
     }
 }

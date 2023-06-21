@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\File;
 
 use App\Api\Response\File\FileResponse;
-use App\Controller\AbstractController;
+use App\Controller\ControllerInterface;
 use App\Exception\ValidationException;
 use App\Service\File\FileService;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(path="/file", methods="POST")
  */
-class FileUploadController extends AbstractController
+class FileUploadController implements ControllerInterface
 {
     private FileService $fileService;
 

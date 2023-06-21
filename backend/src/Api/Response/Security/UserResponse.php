@@ -11,11 +11,15 @@ class UserResponse
     public string $id;
     public string $email;
     public bool $admin;
+    public bool $active;
+    public ?string $createdAt;
 
     public function __construct(User $user)
     {
         $this->id = (string)$user->getId();
         $this->email = $user->getEmail();
         $this->admin = $user->isAdmin();
+        $this->active = $user->isActive();
+        $this->createdAt = $user->getCreatedAt() !== null ? $user->getCreatedAt()->format('c') : null;
     }
 }

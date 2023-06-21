@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Record;
+namespace App\Controller\Admin;
 
 use App\Controller\ControllerInterface;
-use App\Service\Record\RecordService;
+use App\Service\Admin\AdminUserService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Uid\Uuid;
 
 /**
- * @Route(path="/record/finish/{id}", methods="POST")
+ * @Route(path="/admin/user/{id}", methods="DELETE")
  */
-class RecordFinishController implements ControllerInterface
+class UserDeleteController implements ControllerInterface
 {
-    private RecordService $recordService;
+    private AdminUserService $userService;
 
     public function __construct(
-        RecordService $recordService
+        AdminUserService $userService
     ) {
-        $this->recordService = $recordService;
+        $this->userService = $userService;
     }
 
     public function __invoke(string $id): Response
     {
-        $this->recordService->finish(Uuid::fromString($id));
+        $this->userService->delete(Uuid::fromString($id));
 
         return new JsonResponse();
     }

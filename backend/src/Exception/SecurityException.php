@@ -20,4 +20,9 @@ class SecurityException extends BaseException
     {
         return new self('not auth', 202, 401);
     }
+
+    public static function block(): self
+    {
+        return new self('block', 203, 403);
+    }
 }
