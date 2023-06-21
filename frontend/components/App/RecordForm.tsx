@@ -2,6 +2,7 @@ import { createRecord } from '@/lib/api/record'
 import { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
+import RecordFormFiles from './RecordFormFiles'
 
 type ModalFormProps = {
   reload: () => void
@@ -20,6 +21,8 @@ type Props = {
 const ModalForm = ({ date, show, setShow, token, reload }: ModalFormProps) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [text, setText] = useState<string>('')
+  const [files, setFiles] = useState<File[]>([])
+
   const submit = () => {
     if (text.length < 1) {
       return
@@ -43,6 +46,9 @@ const ModalForm = ({ date, show, setShow, token, reload }: ModalFormProps) => {
         <Form.Group className="mb-3">
           <Form.Control as="textarea" rows={3} value={text} onChange={(e) => setText(e.target.value)} />
         </Form.Group>
+
+        <RecordFormFiles files={files} setFiles={setFiles} />
+
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={() => setShow(false)}>
