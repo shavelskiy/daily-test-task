@@ -37,6 +37,12 @@ abstract class BaseEntity
         return $this->id;
     }
 
+    public function setId(Uuid $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
