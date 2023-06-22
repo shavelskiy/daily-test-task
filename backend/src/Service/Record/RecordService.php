@@ -81,7 +81,7 @@ class RecordService
     {
         $record = $this->recordRepository->find($id);
 
-        if ((string)$record->getUser()->getId() !== (string)$id) {
+        if ((string)$record->getUser()->getId() !== (string)$this->userStorage->getUser()->getId()) {
             throw RecordException::access();
         }
 

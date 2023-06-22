@@ -20,7 +20,7 @@ class AuthToken
     private string $accessToken;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity=User::class)
      *
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
