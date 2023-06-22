@@ -4,7 +4,7 @@ DOCKER_COMMAND = docker-compose run --rm -e XDEBUG_MODE=off php
 DOCKER_COMMAND_WITH_DEBUG = docker-compose run --rm php
 REGISTRY = registry.gitlab.com/akula-crm/crm-backend
 
-init: start install reload-db tests
+init: start install tests reload-db
 
 start:
 	mkdir -p var
