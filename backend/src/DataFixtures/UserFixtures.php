@@ -44,7 +44,8 @@ class UserFixtures extends Fixture
                 ->setEmail($item['email'])
                 ->setPassword(sha1('daily-salt' . $item['password']))
                 ->setAdmin($item['admin'])
-                ->setActive($item['active']);
+                ->setActive($item['active'])
+            ;
 
             $manager->persist($user);
         }

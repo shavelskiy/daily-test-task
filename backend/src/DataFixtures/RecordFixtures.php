@@ -9,8 +9,8 @@ use App\Repository\FileRepository;
 use App\Repository\UserRepository;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Uid\Uuid;
 
 class RecordFixtures extends Fixture implements DependentFixtureInterface
@@ -49,7 +49,7 @@ class RecordFixtures extends Fixture implements DependentFixtureInterface
             'files' => [],
             'done' => true,
             'yesterday' => true,
-        ]
+        ],
     ];
 
     private UserRepository $userRepository;
@@ -77,7 +77,8 @@ class RecordFixtures extends Fixture implements DependentFixtureInterface
 
             $record
                 ->setText($item['text'])
-                ->setDone($item['done']);
+                ->setDone($item['done'])
+            ;
 
             foreach ($item['files'] as $file) {
                 $record->addFile(

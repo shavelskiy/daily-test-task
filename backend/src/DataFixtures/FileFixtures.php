@@ -8,8 +8,8 @@ use App\Entity\File;
 use App\Repository\UserRepository;
 use App\Service\File\FileStorage;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Uid\Uuid;
 
@@ -54,7 +54,8 @@ class FileFixtures extends Fixture implements DependentFixtureInterface
             $file->setId(Uuid::fromString($item['id']));
             $file
                 ->setName($item['name'])
-                ->setContentType($item['content_type']);
+                ->setContentType($item['content_type'])
+            ;
 
             $this->fileStorage->save(
                 $file,

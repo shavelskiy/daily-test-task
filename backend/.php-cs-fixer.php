@@ -24,5 +24,7 @@ return (new PhpCsFixer\Config())
         'single_line_comment_style' => false,
         'declare_strict_types' => true,
         'global_namespace_import' => true,
+        'php_unit_test_class_requires_covers' => false,
+        'php_unit_internal_class' => false,
     ])
     ->setFinder($finder);

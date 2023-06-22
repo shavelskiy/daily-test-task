@@ -30,6 +30,7 @@
     "friendsofphp/php-cs-fixer": "^3.18",
     "liip/test-fixtures-bundle": "^2.6",
     "phpunit/phpunit": "^9.6",
+    "symfony/browser-kit": "5.4.*",
     "vimeo/psalm": "^5.12"
   },
   "conflict": {
