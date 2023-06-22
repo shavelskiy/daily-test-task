@@ -29,9 +29,12 @@ const AuthForm = () => {
           setBlock(true)
         } else {
           result.json().then((data) => {
-            login(data.token)
-            setResult(true)
-            setTimeout(() => router.replace(`/daily`), 500)
+            login(data.token).then(
+              () => {
+                setResult(true)
+                setTimeout(() => router.push(`/daily`), 500)
+              }
+            )
           })
         }
       })

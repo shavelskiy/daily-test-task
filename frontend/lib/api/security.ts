@@ -48,8 +48,10 @@ export const getUser = async (cookieStore: ReadonlyRequestCookies): Promise<IUse
     return null
   }
 
-  const token = cookie.value
+  return fetchUser(cookie.value)
+}
 
+export const fetchUser = async (token: string): Promise<IUser | null> => {
   const res = await fetch(`${process.env.API_HOST}/v1/security/user`, {
     headers: {
       Authorization: 'Bearer ' + token,

@@ -27,7 +27,7 @@ const RegisterForm = () => {
           result.json().then((data) => {
             login(data.token)
             setResult(true)
-            setTimeout(() => router.replace(`/daily`), 500)
+            setTimeout(() => router.push(`/daily`), 500)
           })
         }
       })

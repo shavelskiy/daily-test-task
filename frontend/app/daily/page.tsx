@@ -5,12 +5,14 @@ import RecordForm from '@/components/App/RecordForm'
 import RecordList from '@/components/App/RecordList'
 import AppMenu from '@/components/Layout/AppMenu'
 import { getRecords } from '@/lib/api/record'
+import { fetchUser } from '@/lib/api/security'
+import { getToken } from '@/lib/auth'
 import { IRecord, IUser } from '@/types/types'
 import { useEffect, useState } from 'react'
 import { Col, Container, Row, Spinner } from 'react-bootstrap'
 
 type Props = {
-  user: IUser
+  user: IUser | undefined | null
   token: string
 }
 
@@ -19,6 +21,10 @@ const App = ({ params }: { params: Props }) => {
   const [records, setRecords] = useState<IRecord[] | null>(null)
 
   const reload = () => {
+    if (!params.token) {
+      return
+    }
+
     setRecords(null)
     getRecords(date, params.token)
       .then((res) => {
@@ -33,6 +39,12 @@ const App = ({ params }: { params: Props }) => {
   }
 
   useEffect(reload, [date, params.token])
+
+  if (!params.user) {
+    params.token = getToken()
+    fetchUser(params.token).then((result) => (params.user = result))
+    return <></>
+  }
 
   return (
     <>

@@ -3,12 +3,14 @@
 import UserList from '@/components/Admin/UserList'
 import AppMenu from '@/components/Layout/AppMenu'
 import { getUsers } from '@/lib/api/admin'
+import { fetchUser } from '@/lib/api/security'
+import { getToken } from '@/lib/auth'
 import { IUser } from '@/types/types'
 import { useEffect, useState } from 'react'
 import { Col, Container, Row, Spinner } from 'react-bootstrap'
 
 type Props = {
-  user: IUser
+  user: IUser | undefined | null
   token: string
 }
 
@@ -16,6 +18,10 @@ const Admin = ({ params }: { params: Props }) => {
   const [users, setUsers] = useState<IUser[] | null>(null)
 
   const reload = () => {
+    if (!params.token) {
+      return
+    }
+
     setUsers(null)
     getUsers(params.token)
       .then((res) => {
@@ -30,6 +36,12 @@ const Admin = ({ params }: { params: Props }) => {
   }
 
   useEffect(reload, [params.token])
+
+  if (!params.user) {
+    params.token = getToken()
+    fetchUser(params.token).then((result) => (params.user = result))
+    return <></>
+  }
 
   return (
     <>
